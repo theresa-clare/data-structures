@@ -34,15 +34,26 @@ def sort_by_cohort(filename):
     
     """
 
-    all_students = []
-    winter_15 = []
+#    all_students = []
+#    winter_15 = []
     spring_15 = []
     tas = []
+    all_student_info = []
 
-    # Code goes here
+    cohort_data = open(filename)
+    
+    for line in cohort_data:
+        person_data = line.rstrip().split("|")
+        if person_data[4] == "Spring 2015":
+            spring_15.append(person_data[0] + " " + person_data[1])
+            
+        all_student_info.append(person_data) # created to iterate over in the list comprehension
 
+    #practice list comprehension
+    winter_15 = [student[0] + " " + student[1] for student in all_student_info if student[4] == "Winter 2015"]   
+    tas = [student[0] + " " + student[1] for student in all_student_info if student[3] == "" and student[4] != ""]
+    all_students = [winter_15, spring_15, tas]
     return all_students
-
 
 def students_by_house(filename):
     """TODO: Sort students by house.
@@ -138,3 +149,5 @@ def find_house_members_by_student_name(student_list):
     # Code goes here
 
     return
+
+sort_by_cohort('cohort_data.txt')
