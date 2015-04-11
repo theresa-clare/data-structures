@@ -72,15 +72,22 @@ def students_by_house(filename):
             ]
     """
 
-    all_students = []
-    gryffindor = []
-    hufflepuff = []
-    slytherin = []
-    dumbledores_army = []
-    ravenclaw = []
-    tas = []
+    all_student_info = []
 
-    # Code goes here
+    cohort_data = open(filename)
+
+    for line in cohort_data:
+        person_data = line.rstrip().split("|")
+        all_student_info.append(person_data)
+
+    gryffindor = [student[1] for student in all_student_info if student[2] == "Gryffindor"]
+    hufflepuff = [student[1] for student in all_student_info if student[2] == "Hufflepuff"]
+    slytherin = [student[1] for student in all_student_info if student[2] == "Slyterin"]
+    dumbledores_army = [student[1] for student in all_student_info if student[2] == "Dumbledore's Army"]
+    ravenclaw = [student[1] for student in all_student_info if student[2] == "Ravenclaw"]
+    tas = [student[1] for student in all_student_info if student[3] == "" and student[4] != ""]
+
+    all_students = [gryffindor, hufflepuff, slytherin, dumbledores_army, ravenclaw, tas]
 
     return all_students
 
@@ -150,4 +157,3 @@ def find_house_members_by_student_name(student_list):
 
     return
 
-sort_by_cohort('cohort_data.txt')
